@@ -105,6 +105,20 @@ function hideLockMark() {
     hide.value ==="unchecked" ? hide.value = "on" : hide.value = "unchecked";
 };
 
+function lockAll() {
+    let all = document.getElementById('lockAll');
+    let pixel = document.getElementsByTagName('td');
+    let hide = document.getElementById('hideLock');
+
+    pixelArr = [...pixel];
+    pixelArr.forEach(cell => {
+        if(!cell.classList.contains('lock')) {
+            cell.classList.add('lock');
+        };
+        if(hide.value !== "on") cell.textContent = "x";
+    });
+};
+
 function removeLock() {
     let lock = document.getElementById('colorLock');
     let pixel = document.getElementsByTagName('td');
@@ -132,7 +146,8 @@ function buttonEvents() {
         fill = document.getElementById('fill')
         lock = document.getElementById('colorLock')
         hide = document.getElementById('hideLock')
-        noLock = document.getElementById('removeLock');
+        noLock = document.getElementById('removeLock')
+        all = document.getElementById('lockAll');
     
     submit.addEventListener("click", () =>{
         reset();
@@ -158,6 +173,10 @@ function buttonEvents() {
     noLock.addEventListener("click", () => {
         removeLock();
     }, false);
+
+    all.addEventListener("click", () => {
+        lockAll();
+    })
 };
 
 window.onload = buttonEvents();
