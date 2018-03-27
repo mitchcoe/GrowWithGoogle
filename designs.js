@@ -99,7 +99,6 @@ function lockColor() {
     });
 };
 
-// hides x marks from lock function
 function hideLockMark() {
     let hide = document.getElementById('hideLock');
     hide.value ==="unchecked" ? hide.value = "on" : hide.value = "unchecked";
@@ -140,6 +139,28 @@ function reset() {
     };
 };
 
+function etch() {
+    let sketch = document.getElementById('etchSketch');
+    sketch.value === "unchecked" ? sketch.value = "on" : sketch.value = "unchecked";
+    if(sketch.value === "on") etchSketch();
+};
+
+function etchSketch() {
+    let cellArr = document.getElementsByTagName('td');
+    let cell = [...cellArr];
+    let sketch = document.getElementById('etchSketch');
+
+    cell.forEach(cell => {
+        cell.addEventListener("mouseover", () => {
+            if(sketch.value === "on"){
+                cell.style.backgroundColor = colorInput();
+            } else {
+                cell.style.backgroundColor = cell.style.backgroundColor;
+            }
+        }, false);
+    });
+}
+
 function buttonEvents() {
     let submit = document.getElementById('submit')
         blank = document.getElementById('white')
@@ -148,6 +169,9 @@ function buttonEvents() {
         hide = document.getElementById('hideLock')
         noLock = document.getElementById('removeLock')
         all = document.getElementById('lockAll');
+        sketch = document.getElementById('etchSketch')
+        pixels = document.getElementById("pixelCanvas")
+        kids = pixels.hasChildNodes();
     
     submit.addEventListener("click", () =>{
         reset();
@@ -176,7 +200,11 @@ function buttonEvents() {
 
     all.addEventListener("click", () => {
         lockAll();
-    })
+    }, false);
+
+    sketch.addEventListener("click", () => {
+        etch();
+    }, false);
 };
 
 window.onload = buttonEvents();
